@@ -4,8 +4,10 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "build": "tsc",
+    "build": "tsc && npm run copy-files",
+    "copy-files": "cp -r src/views dist/ 2>/dev/null || true && cp -r src/public dist/ 2>/dev/null || true",
     "start": "node dist/index.js",
+    "vercel-build": "npm run build",
     "setup": "npm install",
     "lint": "eslint src/**/*.ts",
     "test": "echo \"No tests specified\" && exit 0"
