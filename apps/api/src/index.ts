@@ -203,4 +203,7 @@ process.on('unhandledRejection', (reason, promise) => {
 });
 
 // Start the server
-startServer();
+//startServer();
+
+// ✅ export the Express app for Vercel
+export default app;
