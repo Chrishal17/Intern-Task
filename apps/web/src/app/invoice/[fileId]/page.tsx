@@ -87,26 +87,26 @@ export default function InvoicePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       {/* Header */}
-      <div className="bg-white border-b px-4 py-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center">
+      <div className="bg-white/80 backdrop-blur-sm border-b border-gray-200 px-6 py-4 shadow-sm">
+        <div className="flex items-center justify-between max-w-7xl mx-auto">
+          <div className="flex items-center space-x-4">
             <Link href="/">
-              <Button variant="ghost" size="sm">
+              <Button variant="ghost" size="sm" className="hover:bg-blue-50">
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back to Dashboard
               </Button>
             </Link>
-            <div className="ml-4">
-              <h1 className="text-lg font-semibold">
+            <div className="flex flex-col">
+              <h1 className="text-xl font-bold text-gray-900">
                 {fileName || 'PDF Invoice'}
               </h1>
-              <p className="text-xs text-gray-500">File ID: {fileId}</p>
+              <p className="text-sm text-gray-600">File ID: {fileId}</p>
             </div>
           </div>
           <Link href="/invoices">
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" className="hover:bg-blue-50">
               View All Invoices
             </Button>
           </Link>
@@ -114,14 +114,14 @@ export default function InvoicePage() {
       </div>
 
       {/* Main Content */}
-      <div className="flex h-[calc(100vh-73px)]">
+      <div className="flex h-[calc(100vh-88px)] max-w-7xl mx-auto px-6 py-4 gap-6">
         {/* Left Panel - PDF Viewer */}
-        <div className="w-1/2 bg-white border-r">
+        <div className="flex-1 bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
           <PDFViewer fileUrl={pdfUrl} />
         </div>
 
         {/* Right Panel - Invoice Form */}
-        <div className="w-1/2 bg-white">
+        <div className="flex-1 bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
           <InvoiceForm
             fileId={fileId}
             fileName={fileName}

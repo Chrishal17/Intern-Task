@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Trash2, Plus } from 'lucide-react';
+import { Trash2, Plus, Building2, FileText, Calculator, Zap, Save, X } from 'lucide-react';
 import { InvoiceData, api } from '@/lib/api';
 import { useToast } from '@/hooks/use-toast';
 
@@ -414,15 +414,17 @@ export default function InvoiceForm({
   };
 
   return (
-    <div className="flex flex-col h-full p-4 space-y-4">
+    <div className="flex flex-col h-full p-6 space-y-6 bg-gradient-to-b from-white to-gray-50">
       {/* Extract Buttons */}
-      <div className="flex space-x-2">
+      <div className="flex flex-wrap gap-3">
         <Button
           onClick={() => handleExtract('gemini')}
           disabled={extracting || loading}
           variant="outline"
           type="button"
+          className="bg-gradient-to-r from-blue-50 to-blue-100 border-blue-200 hover:from-blue-100 hover:to-blue-200 text-blue-700 font-medium"
         >
+          <Zap className="h-4 w-4 mr-2" />
           {extracting ? 'Extracting...' : 'Extract with Gemini'}
         </Button>
         <Button
@@ -430,20 +432,25 @@ export default function InvoiceForm({
           disabled={extracting || loading}
           variant="outline"
           type="button"
+          className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-200 hover:from-purple-100 hover:to-purple-200 text-purple-700 font-medium"
         >
+          <Zap className="h-4 w-4 mr-2" />
           {extracting ? 'Extracting...' : 'Extract with Groq'}
         </Button>
       </div>
 
-      <div className="flex-1 overflow-auto space-y-4">
+      <div className="flex-1 overflow-auto space-y-6">
         {/* Vendor Information */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Vendor Information</CardTitle>
+        <Card className="shadow-lg border-0 bg-gradient-to-br from-white to-blue-50/30">
+          <CardHeader className="bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-t-lg">
+            <CardTitle className="flex items-center text-lg font-bold">
+              <Building2 className="h-5 w-5 mr-3" />
+              Vendor Information
+            </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <Label htmlFor="vendor-name">Name *</Label>
+          <CardContent className="p-6 space-y-5">
+            <div className="space-y-2">
+              <Label htmlFor="vendor-name" className="text-sm font-semibold text-gray-700">Name *</Label>
               <Input
                 id="vendor-name"
                 value={getStringValue(safeFormData.vendor.name)}
@@ -453,10 +460,11 @@ export default function InvoiceForm({
                 }))}
                 placeholder="Enter vendor name"
                 required
+                className="border-gray-300 focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
-            <div>
-              <Label htmlFor="vendor-address">Address</Label>
+            <div className="space-y-2">
+              <Label htmlFor="vendor-address" className="text-sm font-semibold text-gray-700">Address</Label>
               <Input
                 id="vendor-address"
                 value={getStringValue(safeFormData.vendor.address)}
@@ -465,10 +473,11 @@ export default function InvoiceForm({
                   vendor: { ...prev?.vendor, address: e.target.value }
                 }))}
                 placeholder="Enter vendor address"
+                className="border-gray-300 focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
-            <div>
-              <Label htmlFor="vendor-tax-id">Tax ID</Label>
+            <div className="space-y-2">
+              <Label htmlFor="vendor-tax-id" className="text-sm font-semibold text-gray-700">Tax ID</Label>
               <Input
                 id="vendor-tax-id"
                 value={getStringValue(safeFormData.vendor.taxId)}
@@ -477,20 +486,24 @@ export default function InvoiceForm({
                   vendor: { ...prev?.vendor, taxId: e.target.value }
                 }))}
                 placeholder="Enter tax ID"
+                className="border-gray-300 focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
           </CardContent>
         </Card>
 
         {/* Invoice Information */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Invoice Information</CardTitle>
+        <Card className="shadow-lg border-0 bg-gradient-to-br from-white to-green-50/30">
+          <CardHeader className="bg-gradient-to-r from-green-600 to-green-700 text-white rounded-t-lg">
+            <CardTitle className="flex items-center text-lg font-bold">
+              <FileText className="h-5 w-5 mr-3" />
+              Invoice Information
+            </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="invoice-number">Invoice Number *</Label>
+          <CardContent className="p-6 space-y-5">
+            <div className="grid grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <Label htmlFor="invoice-number" className="text-sm font-semibold text-gray-700">Invoice Number *</Label>
                 <Input
                   id="invoice-number"
                   value={getStringValue(safeFormData.invoice.number)}
@@ -500,10 +513,11 @@ export default function InvoiceForm({
                   }))}
                   placeholder="Enter invoice number"
                   required
+                  className="border-gray-300 focus:border-green-500 focus:ring-green-500"
                 />
               </div>
-              <div>
-                <Label htmlFor="invoice-date">Invoice Date *</Label>
+              <div className="space-y-2">
+                <Label htmlFor="invoice-date" className="text-sm font-semibold text-gray-700">Invoice Date *</Label>
                 <Input
                   id="invoice-date"
                   type="date"
@@ -513,12 +527,13 @@ export default function InvoiceForm({
                     invoice: { ...prev?.invoice, date: e.target.value }
                   }))}
                   required
+                  className="border-gray-300 focus:border-green-500 focus:ring-green-500"
                 />
               </div>
             </div>
             <div className="grid grid-cols-3 gap-4">
-              <div>
-                <Label htmlFor="currency">Currency</Label>
+              <div className="space-y-2">
+                <Label htmlFor="currency" className="text-sm font-semibold text-gray-700">Currency</Label>
                 <Input
                   id="currency"
                   value={getStringValue(safeFormData.invoice.currency)}
@@ -527,10 +542,11 @@ export default function InvoiceForm({
                     invoice: { ...prev?.invoice, currency: e.target.value }
                   }))}
                   placeholder="USD"
+                  className="border-gray-300 focus:border-green-500 focus:ring-green-500"
                 />
               </div>
-              <div>
-                <Label htmlFor="subtotal">Subtotal</Label>
+              <div className="space-y-2">
+                <Label htmlFor="subtotal" className="text-sm font-semibold text-gray-700">Subtotal</Label>
                 <Input
                   id="subtotal"
                   type="number"
@@ -541,10 +557,11 @@ export default function InvoiceForm({
                     invoice: { ...prev?.invoice, subtotal: parseFloat(e.target.value) || 0 }
                   }))}
                   placeholder="0.00"
+                  className="border-gray-300 focus:border-green-500 focus:ring-green-500"
                 />
               </div>
-              <div>
-                <Label htmlFor="tax-percent">Tax %</Label>
+              <div className="space-y-2">
+                <Label htmlFor="tax-percent" className="text-sm font-semibold text-gray-700">Tax %</Label>
                 <Input
                   id="tax-percent"
                   type="number"
@@ -555,11 +572,12 @@ export default function InvoiceForm({
                     invoice: { ...prev?.invoice, taxPercent: parseFloat(e.target.value) || 0 }
                   }))}
                   placeholder="0.00"
+                  className="border-gray-300 focus:border-green-500 focus:ring-green-500"
                 />
               </div>
             </div>
-            <div>
-              <Label htmlFor="total">Total</Label>
+            <div className="space-y-2">
+              <Label htmlFor="total" className="text-sm font-semibold text-gray-700">Total</Label>
               <Input
                 id="total"
                 type="number"
@@ -570,11 +588,12 @@ export default function InvoiceForm({
                   invoice: { ...prev?.invoice, total: parseFloat(e.target.value) || 0 }
                 }))}
                 placeholder="0.00"
+                className="border-gray-300 focus:border-green-500 focus:ring-green-500 font-semibold text-lg"
               />
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="po-number">PO Number</Label>
+            <div className="grid grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <Label htmlFor="po-number" className="text-sm font-semibold text-gray-700">PO Number</Label>
                 <Input
                   id="po-number"
                   value={getStringValue(safeFormData.invoice.poNumber)}
@@ -583,10 +602,11 @@ export default function InvoiceForm({
                     invoice: { ...prev?.invoice, poNumber: e.target.value }
                   }))}
                   placeholder="Enter PO number"
+                  className="border-gray-300 focus:border-green-500 focus:ring-green-500"
                 />
               </div>
-              <div>
-                <Label htmlFor="po-date">PO Date</Label>
+              <div className="space-y-2">
+                <Label htmlFor="po-date" className="text-sm font-semibold text-gray-700">PO Date</Label>
                 <Input
                   id="po-date"
                   type="date"
@@ -595,6 +615,7 @@ export default function InvoiceForm({
                     ...prev,
                     invoice: { ...prev?.invoice, poDate: e.target.value }
                   }))}
+                  className="border-gray-300 focus:border-green-500 focus:ring-green-500"
                 />
               </div>
             </div>
@@ -602,72 +623,93 @@ export default function InvoiceForm({
         </Card>
 
         {/* Line Items */}
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle>Line Items</CardTitle>
-            <Button onClick={addLineItem} size="sm" type="button" disabled={loading}>
-              <Plus className="h-4 w-4 mr-2" />
-              Add Item
-            </Button>
+        <Card className="shadow-lg border-0 bg-gradient-to-br from-white to-purple-50/30">
+          <CardHeader className="bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-t-lg">
+            <CardTitle className="flex items-center justify-between text-lg font-bold">
+              <div className="flex items-center">
+                <Calculator className="h-5 w-5 mr-3" />
+                Line Items
+              </div>
+              <Button
+                onClick={addLineItem}
+                size="sm"
+                type="button"
+                disabled={loading}
+                className="bg-white/20 hover:bg-white/30 text-white border-white/30"
+              >
+                <Plus className="h-4 w-4 mr-2" />
+                Add Item
+              </Button>
+            </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <div className="space-y-4">
               {Array.isArray(safeFormData.invoice.lineItems) && safeFormData.invoice.lineItems.length > 0 ? (
                 safeFormData.invoice.lineItems.map((item, index) => (
-                  <div key={index} className="grid grid-cols-5 gap-2 items-end">
-                    <div>
-                      <Label>Description</Label>
-                      <Input
-                        value={getStringValue(item?.description)}
-                        onChange={(e) => updateLineItem(index, 'description', e.target.value)}
-                        placeholder="Item description"
-                      />
+                  <div key={index} className="bg-white rounded-lg p-4 border border-gray-200 shadow-sm">
+                    <div className="grid grid-cols-5 gap-4 items-end">
+                      <div className="col-span-2 space-y-2">
+                        <Label className="text-sm font-semibold text-gray-700">Description</Label>
+                        <Input
+                          value={getStringValue(item?.description)}
+                          onChange={(e) => updateLineItem(index, 'description', e.target.value)}
+                          placeholder="Item description"
+                          className="border-gray-300 focus:border-purple-500 focus:ring-purple-500"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label className="text-sm font-semibold text-gray-700">Unit Price</Label>
+                        <Input
+                          type="number"
+                          step="0.01"
+                          value={getNumberValue(item?.unitPrice)}
+                          onChange={(e) => updateLineItem(index, 'unitPrice', parseFloat(e.target.value) || 0)}
+                          placeholder="0.00"
+                          className="border-gray-300 focus:border-purple-500 focus:ring-purple-500"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label className="text-sm font-semibold text-gray-700">Quantity</Label>
+                        <Input
+                          type="number"
+                          step="1"
+                          value={getNumberValue(item?.quantity)}
+                          onChange={(e) => updateLineItem(index, 'quantity', parseInt(e.target.value) || 0)}
+                          placeholder="1"
+                          className="border-gray-300 focus:border-purple-500 focus:ring-purple-500"
+                        />
+                      </div>
+                      <div className="flex items-end space-x-2">
+                        <div className="flex-1 space-y-2">
+                          <Label className="text-sm font-semibold text-gray-700">Total</Label>
+                          <Input
+                            type="number"
+                            step="0.01"
+                            value={getNumberValue(item?.total)}
+                            onChange={(e) => updateLineItem(index, 'total', parseFloat(e.target.value) || 0)}
+                            placeholder="0.00"
+                            className="border-gray-300 focus:border-purple-500 focus:ring-purple-500 font-semibold"
+                          />
+                        </div>
+                        <Button
+                          onClick={() => removeLineItem(index)}
+                          variant="outline"
+                          size="icon"
+                          type="button"
+                          disabled={loading}
+                          className="border-red-300 text-red-600 hover:bg-red-50 hover:border-red-400"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
                     </div>
-                    <div>
-                      <Label>Unit Price</Label>
-                      <Input
-                        type="number"
-                        step="0.01"
-                        value={getNumberValue(item?.unitPrice)}
-                        onChange={(e) => updateLineItem(index, 'unitPrice', parseFloat(e.target.value) || 0)}
-                        placeholder="0.00"
-                      />
-                    </div>
-                    <div>
-                      <Label>Quantity</Label>
-                      <Input
-                        type="number"
-                        step="1"
-                        value={getNumberValue(item?.quantity)}
-                        onChange={(e) => updateLineItem(index, 'quantity', parseInt(e.target.value) || 0)}
-                        placeholder="1"
-                      />
-                    </div>
-                    <div>
-                      <Label>Total</Label>
-                      <Input
-                        type="number"
-                        step="0.01"
-                        value={getNumberValue(item?.total)}
-                        onChange={(e) => updateLineItem(index, 'total', parseFloat(e.target.value) || 0)}
-                        placeholder="0.00"
-                      />
-                    </div>
-                    <Button
-                      onClick={() => removeLineItem(index)}
-                      variant="outline"
-                      size="icon"
-                      type="button"
-                      disabled={loading}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
                   </div>
                 ))
               ) : (
-                <div className="text-center py-8 text-gray-500">
-                  <p>No line items added yet.</p>
-                  <p className="text-sm">Click "Add Item" to get started.</p>
+                <div className="text-center py-12 text-gray-500 bg-white rounded-lg border-2 border-dashed border-gray-300">
+                  <Calculator className="h-12 w-12 mx-auto mb-4 text-gray-400" />
+                  <p className="text-lg font-medium">No line items added yet.</p>
+                  <p className="text-sm mt-1">Click "Add Item" to get started.</p>
                 </div>
               )}
             </div>
@@ -676,7 +718,7 @@ export default function InvoiceForm({
       </div>
 
       {/* Action Buttons */}
-      <div className="flex justify-between pt-4 border-t">
+      <div className="flex justify-between items-center pt-6 border-t border-gray-200 bg-white/50 rounded-lg p-4">
         <div>
           {formData?._id && (
             <Button
@@ -684,16 +726,20 @@ export default function InvoiceForm({
               variant="destructive"
               disabled={loading}
               type="button"
+              className="bg-red-600 hover:bg-red-700 text-white font-medium"
             >
+              <X className="h-4 w-4 mr-2" />
               {loading ? 'Deleting...' : 'Delete Invoice'}
             </Button>
           )}
         </div>
-        <Button 
-          onClick={handleSave} 
+        <Button
+          onClick={handleSave}
           disabled={loading || extracting}
           type="button"
+          className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-medium px-6"
         >
+          <Save className="h-4 w-4 mr-2" />
           {loading ? 'Saving...' : 'Save Invoice'}
         </Button>
       </div>
