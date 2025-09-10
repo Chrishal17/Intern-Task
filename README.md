@@ -4,8 +4,8 @@ A full-stack application for uploading PDFs, extracting invoice data using AI (G
 
 ## 🌐 Live Demo
 
-- **Web Application**: [https://your-web-app.vercel.app](https://your-web-app.vercel.app)
-- **API Backend**: [https://your-api-app.vercel.app](https://your-api-app.vercel.app)
+- **Web Application**: [https://pdf-dashboard-web.vercel.app](https://pdf-dashboard-web.vercel.app)
+- **API Backend**: [https://pdf-dashboard-api.vercel.app](https://pdf-dashboard-api.vercel.app)
 
 ## 📋 Features
 
