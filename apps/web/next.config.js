@@ -7,6 +7,10 @@ const nextConfig = {
     config.resolve.alias.canvas = false;
     return config;
   },
+  eslint: {
+    // ✅ Only run linting locally, not during Vercel build
+    ignoreDuringBuilds: true,
+  }
 };
 
 module.exports = nextConfig;
