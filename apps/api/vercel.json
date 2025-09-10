@@ -6,13 +6,13 @@
       "use": "@vercel/node"
     }
   ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "dist/index.js"
+    }
+  ],
   "env": {
     "NODE_ENV": "production"
-  },
-  "rewrites":[
-    {
-      "source" : "/(.*)",
-      "destination": "/"
-    }
-  ]
+  }
 }
